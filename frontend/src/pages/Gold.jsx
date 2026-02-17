@@ -38,38 +38,12 @@ import { PriceContext } from "../components/PriceProvider";
           <h1 className="text-4xl font-bold text-primary mb-2">
            Buy Gold  
           </h1>
-          {/* <p className="text-slate-600">
-            Real-time gold price conversion calculator
-          </p> */}
+         
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-
-          {/* Left Side - Gold Card */}
+        <div className="grid lg:grid-cols-2 gap-8"> 
           <div className="space-y-6">
-
-            {/* Gold Bar */}
-            {/* <div className="bg-gradient-to-br from-amber-400 to-yellow-600 text-white rounded-2xl shadow-xl p-6">
-              <h2 className="text-2xl font-bold mb-2">Gold Bar</h2>
-              <p className="text-amber-100 mb-4">24 Karat Pure Gold</p>
-
-              <div className="bg-gradient-to-br from-yellow-300 to-amber-600 rounded-lg p-8 shadow-2xl border-4 border-yellow-500 text-center">
-                <div className="text-6xl font-bold text-amber-900">Au</div>
-                <div className="text-2xl font-semibold text-amber-900">
-                  24K GOLD
-                </div>
-                <div className="text-sm text-amber-800">
-                  999.9 FINE GOLD
-                </div>
-                <div className="border-t-2 border-amber-700 pt-4 mt-4">
-                  <div className="text-3xl font-bold text-amber-900">
-                    1g
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
-            {/* Market Insights */}
+            {/* Insights */}
             <div className="bg-yellow-900/20 border border-yellow-500/30 rounded-2xl shadow-lg p-6">
               <h2 className="text-xl font-bold mb-4">Market Insights</h2>
 

@@ -1,16 +1,17 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
+import { PriceContext } from "../components/PriceProvider";
 import { useNavigate } from "react-router-dom";
 import {TrendingUp, TrendingDown,  DollarSign,  Award,  Shield,  Zap,} from "lucide-react";
 import {LineChart,  Line,  XAxis,  YAxis, CartesianGrid, Tooltip, ResponsiveContainer,Legend,} from "recharts";
-import { PriceContext } from "../components/PriceProvider";
+
 
 function Dashboard() {
 
+  const navigate=useNavigate();
   const { goldPrice, goldPercentage ,silverPrice,silverPercentage} = useContext(PriceContext);
   const isProfit = Number(goldPercentage) > 0;
-  const navigate=useNavigate();
   const silverisProfit = Number(silverPercentage) > 0;
   const goldData = [
   { date: 'Jan', price: 5800, profit: 0 },
@@ -63,6 +64,7 @@ const silverData = [
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
+
         <div className="mb-8">
           <h1 className="text-4xl font-bold">DigiGold</h1>
           <p className="text-slate-400">
@@ -82,7 +84,6 @@ const silverData = [
                   <p className="text-sm text-slate-400">Gold Price</p>
                   <h2 className="text-2xl font-bold text-yellow-400">
                     {goldPrice ? `₹${goldPrice}/g` : "Loading..."}
-
                   </h2>
                 </div>
                 
@@ -133,6 +134,7 @@ const silverData = [
           {silverisProfit ? "▲" : "▼"}{" "}
           {Math.abs(silverPercentage)}%
         </p>
+        
       )}
 </div>          
        </div>

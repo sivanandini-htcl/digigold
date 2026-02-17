@@ -49,31 +49,8 @@ import { PriceContext } from "../components/PriceProvider";
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-
           {/* Left Side - Gold Card */}
           <div className="space-y-6">
-
-            {/* Gold Bar */}
-            {/* <div className="bg-gradient-to-br from-amber-400 to-yellow-600 text-white rounded-2xl shadow-xl p-6">
-              <h2 className="text-2xl font-bold mb-2">Gold Bar</h2>
-              <p className="text-amber-100 mb-4">24 Karat Pure Gold</p>
-
-              <div className="bg-gradient-to-br from-yellow-300 to-amber-600 rounded-lg p-8 shadow-2xl border-4 border-yellow-500 text-center">
-                <div className="text-6xl font-bold text-amber-900">Au</div>
-                <div className="text-2xl font-semibold text-amber-900">
-                  24K GOLD
-                </div>
-                <div className="text-sm text-amber-800">
-                  999.9 FINE GOLD
-                </div>
-                <div className="border-t-2 border-amber-700 pt-4 mt-4">
-                  <div className="text-3xl font-bold text-amber-900">
-                    1g
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
             {/* Market Insights */}
             <div className="bg-yellow-900/20 border border-secondary rounded-2xl shadow-lg p-6">
               <h2 className="text-xl font-bold mb-4">Market Insights</h2>
@@ -133,12 +110,11 @@ import { PriceContext } from "../components/PriceProvider";
 
             {/* Toggle Buttons */}
             <div className="flex gap-2 mb-6">
-              <button
-                onClick={() => {
+              <button onClick={() => {
                   setConversionMode("rupees-to-grams");
                   setInputValue("");
                 }}
-                className={`flex-1 py-2 rounded-lg font-semibold ${
+    className={`flex-1 py-2 rounded-lg font-semibold ${
                   conversionMode === "rupees-to-grams"
                     ? "bg-secondary text-accent"
                     : "border"

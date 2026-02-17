@@ -6,6 +6,11 @@ import Silver from "./pages/Silver";
 import Profile from "./pages/Profile";
 import { PriceProvider } from "./components/PriceProvider";
 import Signup from "./pages/Authentication/Signup";
+import Login from "./pages/Authentication/Login";
+import EditProfile from "./pages/EditProfile";
+import KycPage from "./pages/KYC.jsx/KycPage";
+import Nominee from "./pages/ProfileComponents/Nominee";
+
 
 function App() {
   return (
@@ -20,6 +25,10 @@ function App() {
         <Route path="silver" element={<Silver/>}/>
         <Route path="profile" element={<Profile/>}/>
         <Route path="signup" element={<Signup/>}/>
+        <Route path="login" element={<Login/>}/>
+        <Route path="edit" element={<EditProfile/>}/>
+        <Route path="kycpage" element={<KycPage/>}/>
+        <Route path="nominee" element={<Nominee/>}/>
 
       </Routes>
     </BrowserRouter>
