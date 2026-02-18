@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function KycPage() {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1); // 1 = PAN, 2 = Aadhaar, 3 = Video, 4 = Success
+  const [step, setStep] = useState(1); 
   const [formData, setFormData] = useState({
     panNumber: "",
     panName: "",
@@ -12,7 +12,7 @@ function KycPage() {
     aadhaarNumber: "",
     aadhaarFileFront: null,
     aadhaarFileBack: null,
-    videoFile: null, // or selfie
+    videoFile: null, 
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -74,8 +74,8 @@ function KycPage() {
                 key={s}
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                   step >= s
-                    ? "bg-white text-accent"
-                    : "bg-gray-700 text-white"
+                    ?"bg-white text-accent"
+                    : "bg-gray-700 text-white" 
                 }`}
               >
                 {s}
@@ -179,7 +179,7 @@ function KycPage() {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg 
                   focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="XXXX XXXX XXXX"
-                  maxLength={14}
+                  maxLength={12}
                 />
               </div>
 

@@ -22,7 +22,7 @@ function Profile() {
     <div className="m-3 min-h-screen min-w-screen">
     <div className="bg-white  w-full rounded-xl  justify-center p-4 shadow-md text-accent">
       
-      <div className=" flex w-full ">
+      <div className="flex w-full">
         <div className="items-center justify-center">
 
         <img
@@ -39,20 +39,22 @@ function Profile() {
  <div className="flex gap-1 justify-center ">
         <button className="bg-accent rounded-xl p-2 text-white flex  "
          onClick={()=>navigate("/edit")}>View and Update Profile</button>
+        <button className="bg-accent rounded-xl p-2 text-white"
+         onClick={()=>navigate("/nominee")}>Nominee Details</button>      
+         <button className="bg-accent rounded-xl p-2 text-white"
+         onClick={()=>navigate("/kycpage")}>KYC</button>
+        <button className="bg-accent rounded-xl p-2 text-white "
+         onClick={()=>navigate("/delivery")}>Delivery Address</button>
+         <button className="bg-accent rounded-xl p-2 text-white"
+         onClick={()=>navigate("/account")}>Account Details</button>
+         <button className="bg-accent rounded-xl p-2 text-white"
+         onClick={()=>navigate("/")}>Billing Information</button>
          <button className="bg-accent rounded-xl p-2 text-white"
          onClick={()=>navigate("/")}>History</button>
          <button className="bg-accent rounded-xl p-2 text-white"
          onClick={()=>navigate("/")}>Transaction</button>
-         <button className="bg-accent rounded-xl p-2 text-white"
-         onClick={()=>navigate("/kycpage")}>KYC</button>
-         <button className="bg-accent rounded-xl p-2 text-white"
-         onClick={()=>navigate("/")}>Account Details</button>
-         <button className="bg-accent rounded-xl p-2 text-white"
-         onClick={()=>navigate("/")}>Billing Information</button>
-         <button className="bg-accent rounded-xl p-2 text-white "
-         onClick={()=>navigate("/")}>Delivery Address</button>
-         <button className="bg-accent rounded-xl p-2 text-white"
-         onClick={()=>navigate("/nominee")}>Nominee Details</button>
+        <button className="bg-accent rounded-xl p-2 text-white"
+         onClick={()=>navigate("/")}>Redeem</button>
 </div>
  </div>
        
@@ -95,7 +97,7 @@ function Profile() {
 </div>
  <div className="flex justify-center items-center gap-1 m-2">
         <button className="bg-accent rounded-xl p-2 text-white ">Sell</button>
-        <button className="bg-accent rounded-xl p-2 text-white ">Buy</button>
+        <button onClick={()=>navigate("/gold")} className="bg-accent rounded-xl p-2 text-white ">Buy</button>
 </div>
 </div>
 
@@ -130,17 +132,13 @@ function Profile() {
       )}
 </div>
           
-       
     </div>
      <div className="flex justify-center gap-1 m-2">
         <button className="bg-accent rounded-xl p-2 text-white ">Sell</button>
-        <button className="bg-accent rounded-xl p-2 text-white ">Buy</button>
+        <button onClick={()=>navigate("/silver")} className="bg-accent rounded-xl p-2 text-white ">Buy</button>
 </div>
     </div>
     </div>
-
-
-    
 
       </div>
       

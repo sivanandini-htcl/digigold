@@ -10,6 +10,10 @@ import Login from "./pages/Authentication/Login";
 import EditProfile from "./pages/EditProfile";
 import KycPage from "./pages/KYC.jsx/KycPage";
 import Nominee from "./pages/ProfileComponents/Nominee";
+import Delivery from "./pages/ProfileComponents/Delivery";
+import BankAccount from "./pages/ProfileComponents/BankAccount";
+import BuyGold from "./pages/ProfileComponents/BuyGold";
+
 
 
 function App() {
@@ -29,6 +33,9 @@ function App() {
         <Route path="edit" element={<EditProfile/>}/>
         <Route path="kycpage" element={<KycPage/>}/>
         <Route path="nominee" element={<Nominee/>}/>
+        <Route path="/delivery" element={<Delivery/>}/>
+        <Route path="/account" element={< BankAccount/>}/>
+        <Route path="/buygold" element={<BuyGold />} />
 
       </Routes>
     </BrowserRouter>

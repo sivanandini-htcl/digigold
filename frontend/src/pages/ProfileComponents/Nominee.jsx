@@ -10,7 +10,8 @@ function Nominee() {
     nomineePhone: "",
     address: "",
     relation: "",
-    age: "",
+    DOB: "",
+    panNumber:""
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -40,6 +41,8 @@ function Nominee() {
       [name]: value,
     }));
   };
+
+ 
 
   // Save updated data
 //   const handleSave = async () => {
@@ -85,7 +88,8 @@ function Nominee() {
               onChange={handleChange}
             />
           ) : (
-            <p className="border p-2">{formData.nomineeName}</p>
+            <p  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2
+             focus:ring-accent focus:border-indigo-500 ">{formData.nomineeName}</p>
           )}
         </div>
 
@@ -94,11 +98,11 @@ function Nominee() {
           <label>Phone:</label>
           {isEditing ? (
             <input
-              className="border border-black p-2 w-full" type="text" name="nomineePhone"
-              value={formData.nomineePhone} onChange={handleChange}
-            />
+              className="border border-black p-2 w-full" type="number" name="nomineePhone"
+              value={formData.nomineePhone} onChange={handleChange} />
           ) : (
-            <p className="border p-2">{formData.nomineePhone}</p>
+            <p  className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+            focus:ring-2 focus:ring-accent">{formData.nomineePhone}</p>
           )}
         </div>
 
@@ -108,10 +112,10 @@ function Nominee() {
           {isEditing ? (
             <input
               className="border border-black p-2 w-full" type="text"  name="address"
-               value={formData.address} onChange={handleChange}
-            />
+               value={formData.address} onChange={handleChange}/>
           ) : (
-            <p className="border p-2">{formData.address}</p>
+            <p  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2
+             focus:ring-accent ">{formData.address}</p>
           )}
         </div>
 
@@ -123,22 +127,41 @@ function Nominee() {
              value={formData.relation} onChange={handleChange}
             />
           ) : (
-            <p className="border p-2">{formData.relation}</p>
+            <p  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2
+             focus:ring-accent ">{formData.relation}</p>
           )}
         </div>
 
         {/* Age */}
         <div>
-          <label>Age:</label>
+          <label>DOB:</label>
           {isEditing ? (
             <input
-              className="border border-black p-2 w-full" type="number"  name="age"
-              value={formData.age} onChange={handleChange}
+             className="border border-black p-2 w-full" type="date"  name="age"
+              value={formData.DOB} onChange={handleChange}
             />
           ) : (
-            <p className="border p-2">{formData.age}</p>
+            <p className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent ">{formData.DOB}</p>
           )}
         </div>
+
+         <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  PAN Number
+                </label>
+                 {isEditing ? (
+                <input
+                  type="text"
+                  name="panNumber"
+                  value={formData.panNumber}
+                  onChange={handleChange}
+                   className="border border-black p-2 w-full"
+                  placeholder="ABCDE1234F"
+                  maxLength={10}
+                />) : (
+            <p  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-indigo-500 uppercase">{formData.DOB}</p>
+          )}
+              </div>
 
       </div>
 

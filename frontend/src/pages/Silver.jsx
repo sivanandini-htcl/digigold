@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowLeftRight, TrendingUp } from "lucide-react";
-import { useContext} from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, TrendingUp } from "lucide-react";
+import { useContext } from "react";
 import { PriceContext } from "../components/PriceProvider";
-//
 
- function Silver() {
+function Silver() {
   const [conversionMode, setConversionMode] = useState("rupees-to-grams");
   const [inputValue, setInputValue] = useState("");
- const { silverPrice, silverPercentage } = useContext(PriceContext);
+  const [showBreakdown, setShowBreakdown] = useState(false);
 
-
+  const { silverPrice, silverPercentage } = useContext(PriceContext);
+  const navigate = useNavigate();
 
   const silverisProfit = Number(silverPercentage) > 0;
-  const silverPricePerGram =`${silverPrice}` ;
+  const silverPricePerGram = Number(silverPrice) || 80; // fallback in case context gives undefined
 
   const calculateConversion = () => {
     const value = parseFloat(inputValue);
@@ -26,10 +26,59 @@ import { PriceContext } from "../components/PriceProvider";
     }
   };
 
+  const getFinalCalculation = () => {
+    let grams, baseAmount;
+
+    if (conversionMode === "rupees-to-grams") {
+      grams = parseFloat(calculateConversion());
+      baseAmount = Math.round(parseFloat(inputValue));
+    } else {
+      grams = parseFloat(inputValue);
+      baseAmount = Math.round(parseFloat(calculateConversion()));
+    }
+
+    const gstRate = 0.03; // 3% GST
+    const gstAmount = Math.round(baseAmount * gstRate);
+    const totalWithGST = baseAmount + gstAmount;
+
+    return {
+      grams: grams.toFixed(4),
+      baseAmount,
+      gstAmount,
+      totalWithGST,
+      formattedBase: baseAmount.toLocaleString(),
+      formattedGST: gstAmount.toLocaleString(),
+      formattedTotal: totalWithGST.toLocaleString(),
+    };
+  };
+
+  const handleBuyClick = () => {
+    const val = parseFloat(inputValue);
+    if (isNaN(val) || val <= 0) {
+      alert("Please enter a valid amount");
+      return;
+    }
+    setShowBreakdown(true);
+  };
+
+  const proceedToBuy = () => {
+    const calc = getFinalCalculation();
+    navigate("/buysilver", {
+      state: {
+        grams: calc.grams,
+        baseAmount: calc.baseAmount,
+        totalWithGST: calc.totalWithGST,
+        silverPricePerGram,
+      },
+    });
+  };
+
+  const calc = getFinalCalculation();
+  const hasInput = parseFloat(inputValue) > 0;
+
   return (
     <div className="min-h-screen bg-slate-900 p-8">
       <div className="max-w-7xl mx-auto">
-
         {/* Back Button */}
         <Link to="/">
           <button className="flex items-center gap-2 mb-6 hover:text-amber-600">
@@ -40,46 +89,37 @@ import { PriceContext } from "../components/PriceProvider";
 
         {/* Heading */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-secondary mb-2">
-            Silver Price 
-          </h1>
-          <p className="text-slate-600">
-            
-          </p>
+          <h1 className="text-4xl font-bold text-secondary mb-2">Buy Silver</h1>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Left Side - Gold Card */}
+          {/* Left - Market Insights */}
           <div className="space-y-6">
-            {/* Market Insights */}
             <div className="bg-yellow-900/20 border border-secondary rounded-2xl shadow-lg p-6">
               <h2 className="text-xl font-bold mb-4">Market Insights</h2>
 
               <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg mb-4">
                 <div className="flex items-center gap-2">
                   <TrendingUp className="h-5 w-5 text-green-600" />
-                  <span className="font-semibold text-slate-700">
-                    Today's Change
-                  </span>
+                  <span className="font-semibold text-slate-700">Today's Change</span>
                 </div>
                 <span className="font-bold text-green-600">
-
-         {silverPercentage && (
-        <p
-          className={`text-sm font-semibold mt-1 ${
-            silverisProfit? "text-green-400" : "text-red-400"
-          }`}
-        >
-          {silverisProfit ? "▲" : "▼"}{" "}
-          {Math.abs(silverPercentage)}%
-        </p>
-      )}
+                  {silverPercentage && (
+                    <p
+                      className={`text-sm font-semibold mt-1 ${
+                        silverisProfit ? "text-green-400" : "text-red-400"
+                      }`}
+                    >
+                      {silverisProfit ? "▲" : "▼"}{" "}
+                      {Math.abs(silverPercentage)}%
+                    </p>
+                  )}
                 </span>
               </div>
 
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-slate-00">Current Price</span>
+                  <span className="text-secondary">Current Price</span>
                   <span className="font-semibold text-secondary">
                     ₹{silverPricePerGram.toLocaleString()}/gram
                   </span>
@@ -87,20 +127,19 @@ import { PriceContext } from "../components/PriceProvider";
 
                 <div className="flex justify-between">
                   <span className="text-secondary">Week High</span>
-                  <span className="font-semibold">₹6,580</span>
+                  <span className="font-semibold">₹105</span> {/* placeholder */}
                 </div>
 
                 <div className="flex justify-between">
                   <span className="text-secondary">Week Low</span>
-                  <span className="font-semibold">₹6,420</span>
+                  <span className="font-semibold">₹92</span> {/* placeholder */}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Side - Converter */}
+          {/* Right - Converter + Buy */}
           <div className="bg-yellow-900/20 border border-secondary rounded-2xl shadow-xl p-6">
-
             <h2 className="text-2xl font-bold text-secondary mb-2">Price Converter</h2>
             <p className="text-slate-600 mb-6">
               {conversionMode === "rupees-to-grams"
@@ -110,11 +149,13 @@ import { PriceContext } from "../components/PriceProvider";
 
             {/* Toggle Buttons */}
             <div className="flex gap-2 mb-6">
-              <button onClick={() => {
+              <button
+                onClick={() => {
                   setConversionMode("rupees-to-grams");
                   setInputValue("");
+                  setShowBreakdown(false);
                 }}
-    className={`flex-1 py-2 rounded-lg font-semibold ${
+                className={`flex-1 py-2 rounded-lg font-semibold ${
                   conversionMode === "rupees-to-grams"
                     ? "bg-secondary text-accent"
                     : "border"
@@ -127,6 +168,7 @@ import { PriceContext } from "../components/PriceProvider";
                 onClick={() => {
                   setConversionMode("grams-to-rupees");
                   setInputValue("");
+                  setShowBreakdown(false);
                 }}
                 className={`flex-1 py-2 rounded-lg font-semibold ${
                   conversionMode === "grams-to-rupees"
@@ -140,16 +182,19 @@ import { PriceContext } from "../components/PriceProvider";
 
             {/* Input */}
             <input
-              type=" "
+              type="number"
               placeholder={
-                conversionMode === "rupees-to-grams" ? "10000" : "1.5"
+                conversionMode === "rupees-to-grams" ? "10000" : "100"
               }
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => {
+                setInputValue(e.target.value);
+                setShowBreakdown(false);
+              }}
               className="w-full h-12 px-4 border rounded-lg mb-6 text-lg"
             />
 
-            {/* Result */}
+            {/* Result Preview */}
             <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-lg p-6 border-2 border-amber-200 text-center">
               <p className="text-sm text-slate-600 mb-2">
                 {conversionMode === "rupees-to-grams"
@@ -158,25 +203,81 @@ import { PriceContext } from "../components/PriceProvider";
               </p>
 
               <div className="text-3xl font-bold text-accent">
-                {inputValue ? (
-                  conversionMode === "rupees-to-grams"
-                    ? `${calculateConversion()} g`
-                    : `₹${parseFloat(calculateConversion()).toLocaleString()}`
+                {hasInput ? (
+                  conversionMode === "rupees-to-grams" ? (
+                    `${calc.grams} g`
+                  ) : (
+                    `₹${calc.formattedBase}`
+                  )
                 ) : (
                   <span className="text-slate-300">0</span>
                 )}
               </div>
             </div>
-<div className="mt-4 flex gap-3 mb-2">
-     <button className="flex-1 bg-gray-400
-     hover:bg-gray-600 text-gray-200 font-semibold py-3 px-5 rounded-xl transition">
-      Buy
-    </button>
-  </div>
+
+            {/* Buy Button */}
+            <div className="mt-4 flex gap-3 mb-2">
+              <button
+                className={`flex-1 bg-secondary hover:bg-secondary/90 text-accent font-semibold py-3 px-5 rounded-xl transition ${
+                  !hasInput ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                onClick={handleBuyClick}
+                disabled={!hasInput}
+              >
+                BUY
+              </button>
+            </div>
+
+            {/* GST Breakdown Section */}
+            {showBreakdown && hasInput && (
+              <div className="mt-6 bg-yellow-900/30 border border-secondary/50 rounded-2xl p-6">
+                <h3 className="text-xl font-bold text-secondary mb-4 text-center">
+                  Order Summary
+                </h3>
+
+                <div className="space-y-3 text-sm text-slate-300">
+                  <div className="flex justify-between">
+                    <span>Silver Weight:</span>
+                    <span className="font-semibold">{calc.grams} grams</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Base Amount:</span>
+                    <span className="font-semibold">₹{calc.formattedBase}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>GST (3%):</span>
+                    <span className="font-semibold text-green-400">
+                      + ₹{calc.formattedGST}
+                    </span>
+                  </div>
+                  <div className="border-t border-yellow-700/30 pt-3 flex justify-between text-base font-bold text-secondary">
+                    <span>Total Payable:</span>
+                    <span>₹{calc.formattedTotal}</span>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex flex-col gap-3">
+                  <button
+                    onClick={proceedToBuy}
+                    className="bg-secondary text-accent font-semibold py-3 rounded-xl hover:bg-secondary/90 transition"
+                  >
+                    Confirm & Proceed
+                  </button>
+
+                  <button
+                    onClick={() => setShowBreakdown(false)}
+                    className="text-slate-500 hover:text-slate-300 text-sm underline"
+                  >
+                    Edit / Cancel
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 }
+
 export default Silver;

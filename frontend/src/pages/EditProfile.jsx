@@ -5,10 +5,6 @@ function EditProfile() {
   const navigate = useNavigate();
 
   const [isEditing,setIsEditing] = useState(false);
-
-
-
-
   const [formData, setFormData] = useState({
   firstName: "",
   middleName: "",
@@ -49,9 +45,8 @@ function EditProfile() {
   };
 
   return (
-    <div className="min-h-screen text-accent bg-gray-100 flex justify-center   mt-4">
-        {/*  */}
-<div className="w-full h-full mt-6" >  
+    <div className="min-h-screen text-accent bg-gray-100 flex justify-center mt-4">
+    <div className="w-full h-full mt-6">  
 
         <h2 className="text-xl font-bold mb-4 text-center">
           Profile Details
@@ -168,6 +163,7 @@ function EditProfile() {
 
 </div>
 
+
 <div>
       <label className="text-sm font-semibold">Nationality</label>
         {isEditing ? (
@@ -206,8 +202,6 @@ function EditProfile() {
   )}
 
 </div>
-
-
 
 
 <div>

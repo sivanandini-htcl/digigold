@@ -105,7 +105,7 @@ const silverData = [
             </div>
             {/* buy or sell button */}
       <div className="mt-4 flex gap-3 mb-2">
-    <button className="flex-1 bg-primary
+    <button className="flex-1 
      text-gray-950 font-semibold py-3 px-5 rounded-xl transition bg-primary"
       onClick={()=>navigate("/gold")}>
       BUY
@@ -124,7 +124,7 @@ const silverData = [
                   <p className="text-sm text-slate-400">Silver Price</p>
                    <h2 className="text-2xl font-bold text-slate-300" 
                    > {silverPrice ? `₹ ${silverPrice}/g` : "Loading..."}</h2>
-    <div>
+                   <div>
           {silverPercentage && (
         <p
           className={`text-sm font-semibold mt-1 ${
